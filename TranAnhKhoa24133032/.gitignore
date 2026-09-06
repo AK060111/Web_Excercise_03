@@ -1,0 +1,31 @@
+# Build, caches and local runtime
+/target/
+/.m2/
+/.runtime/
+/logs/
+*.log
+*.war
+*.class
+*.tmp
+*.bak
+*.swp
+# Local secrets (examples may be committed)
+.env
+.env.*
+!.env.example
+application-local.properties
+*.local.properties
+# Uploaded user data
+/upload/
+/uploads/
+# OS/editor local files
+Thumbs.db
+.DS_Store
+/.metadata/
+/.idea/
+/.vscode/
+/.codex/
+/.agents/
+# Keep portable Eclipse/STS project metadata, src, SQL and scripts.
+# Existing machine configuration: retain locally, never commit
+/src/main/resources/application.properties
