@@ -35,10 +35,10 @@ public class MailService {
         props.setProperty("mail.smtp.timeout","10000");
         props.setProperty("mail.smtp.writetimeout","10000");
         Session session=Session.getInstance(props);
-        session.setDebug(false);
+        session.setDebug(true);
         try {
             MimeMessage message=new MimeMessage(session);
-            message.setFrom(new InternetAddress("onboarding@resend.dev"));
+            message.setFrom(new InternetAddress(username));
             message.setRecipient(Message.RecipientType.TO,new InternetAddress(email,true));
             message.setSubject(subject,"UTF-8");
             message.setText(text+otp
@@ -48,8 +48,11 @@ public class MailService {
                 transport.sendMessage(message,message.getAllRecipients());
             }
         } catch(Exception e) {
-            // Do not expose SMTP exceptions: they can contain recipient or server details.
-            throw new IllegalStateException("Không gửi được email. Vui lòng thử gửi lại OTP sau 60 giây hoặc liên hệ quản trị viên.");
+            e.printStackTrace();
+
+            throw new IllegalStateException(
+                "Không gửi được email. Vui lòng thử gửi lại OTP sau 60 giây hoặc liên hệ quản trị viên."
+            );
         }
     }
 }
