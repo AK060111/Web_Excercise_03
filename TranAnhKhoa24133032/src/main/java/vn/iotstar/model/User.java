@@ -2,15 +2,39 @@ package vn.iotstar.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name="[User]", schema="dbo")
+@Cacheable(false)
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
-    private int id, roleid;
-    private String email, userName, fullName, passWord, avatar, phone;
+    @Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="id")
+    private int id;
+    @Column(name="roleid",nullable=false,updatable=false)
+    private int roleid;
+    @Column(name="email",nullable=false,updatable=false,columnDefinition="nvarchar(255)")
+    private String email;
+    @Column(name="username",nullable=false,updatable=false,columnDefinition="nvarchar(100)")
+    private String userName;
+    @Column(name="fullname",nullable=false,columnDefinition="nvarchar(255)")
+    private String fullName;
+    @Column(name="password",nullable=false,updatable=false,columnDefinition="nvarchar(255)")
+    private String passWord;
+    @Column(name="avatar",columnDefinition="nvarchar(255)")
+    private String avatar;
+    @Column(name="phone",columnDefinition="nvarchar(30)")
+    private String phone;
+    @Column(name="createdDate",nullable=false,updatable=false)
     private Date createdDate;
+    @Column(name="active",nullable=false,updatable=false)
     private boolean active;
+    @Column(name="otp",length=64,updatable=false)
     private String otp;
+    @Column(name="otpExpiry",updatable=false,columnDefinition="datetime2")
     private java.sql.Timestamp otpExpiry;
+    @Column(name="otpAttempts",nullable=false,updatable=false)
     private int otpAttempts;
     public boolean isActive(){return active;} public void setActive(boolean v){active=v;}
     public String getOtp(){return otp;} public void setOtp(String v){otp=v;}

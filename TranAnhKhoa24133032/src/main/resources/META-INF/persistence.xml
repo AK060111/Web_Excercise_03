@@ -6,6 +6,7 @@
     <persistence-unit name="ServletCRUDMVC" transaction-type="RESOURCE_LOCAL">
         <class>vn.iotstar.model.Category</class>
         <class>vn.iotstar.model.Product</class>
+        <class>vn.iotstar.model.User</class>
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
             <!-- Connection settings are supplied by JPAConfig from application.properties. -->

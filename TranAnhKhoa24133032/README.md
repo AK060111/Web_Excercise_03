@@ -31,8 +31,8 @@ Kiến trúc Controller → Service → DAO → SQL Server, giao diện tiếng 
 pom.xml                          Maven dependencies/build
 src/main/java/vn/iotstar/
   controller/                    Servlet
-  model/                         User JavaBean, Category/Product JPA entity
-  dao/ và dao/impl/              User JDBC; Category/Product JPA
+  model/                         User/Category/Product JPA entity
+  dao/ và dao/impl/              User auth JDBC; Profile/Category/Product JPA
   service/ và service/impl/      Validation, OTP, nghiệp vụ
   config/ và connection/        AppConfig, JPAConfig, JDBC
   filter/                       Kiểm tra session/quyền Product
@@ -234,3 +234,19 @@ Nếu trước đây đã chia sẻ credentials ra ngoài, cần thu hồi/đổ
 ## Tác giả
 
 Trần Anh Khoa.
+
+## Profile User và triển khai WAR độc lập
+
+Đã bổ sung `/ServletCRUDMVC/profile`: xem hồ sơ mới nhất từ database, sửa fullname/phone/avatar
+bằng JPA/Hibernate. ID lấy từ session; không cho form thay username/email/password/role/OTP.
+Header có link Hồ sơ; lưu thành công cập nhật session. Login/OTP tiếp tục dùng JDBC tương thích.
+
+Build không cần STS: `mvn clean package`, deploy `target/ServletCRUDMVC.war` lên Tomcat 11 đã cài
+bên ngoài project. Không có Maven Wrapper trong project. Đặt `APP_UPLOAD_DIR` ngoài WAR/target và
+giữ nguyên thư mục qua restart/redeploy để ảnh bền vững. Không đóng gói hoặc tự tải Tomcat.
+
+SMTP hiện tác giả dùng Gmail qua MAIL_*; sender lấy từ username cấu hình. Phần Resend phía trên
+là lựa chọn cấu hình trước đây, không yêu cầu đổi SMTP đang chạy. Không sửa MailService khi dùng Profile.
+
+Xem [PROFILE_USER.md](PROFILE_USER.md) để biết file thay đổi, cách deploy Tomcat độc lập,
+kiểm tra JPA và checklist Profile/ảnh sau logout/login/restart.
