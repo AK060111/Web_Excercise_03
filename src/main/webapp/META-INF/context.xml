@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Keep SiteMesh's buffered response writable after the controller's JSP forward.
+     Tomcat 11 otherwise unwraps and suspends the underlying response too early. -->
+<Context suspendWrappedResponseAfterForward="false" />
